@@ -1,17 +1,16 @@
-import { signIn } from '@/app/lib/auth';
+import { auth } from '@/app/lib/auth';
+import { Navbar } from '@/app/components/Navbar';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+
+  if (session?.user) {
+    redirect('/dashboard');
+  }
   return (
-    <>
-      <h1>Hello World!!!!!</h1>
-      <form
-        action={async () => {
-          'use server';
-          await signIn('facebook');
-        }}
-      >
-        <button type="submit">Signin with Facebook</button>
-      </form>
-    </>
+    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <Navbar />
+    </div>
   );
 }
