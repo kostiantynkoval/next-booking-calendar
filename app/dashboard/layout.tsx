@@ -17,13 +17,24 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
 import { getSession } from '@/app/utils/getSession';
+import prisma from '@/app/lib/db';
+import { redirect } from 'next/navigation';
 
 interface DashboardLayoutProps {
   children: ReactNode;
 }
 
+const getData = async (userId: string) => {
+  const data = await prisma.user.findUnique({ where: { id: userId }, select: { userName: true } });
+  if (!data?.userName) {
+    redirect('/onboarding');
+  }
+  return data;
+};
+
 const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
   const session = await getSession();
+  void getData(session.user?.id as string);
   const logOut = async () => {
     'use server';
     await signOut();
