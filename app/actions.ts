@@ -33,5 +33,5 @@ export const OnboardingAction = async (_: unknown, formData: FormData) => {
     data: { userName: submission.value.userName, name: submission.value.fullName }
   });
 
-  return redirect('/dashboard');
+  return redirect('/onboarding/grant-id');
 };

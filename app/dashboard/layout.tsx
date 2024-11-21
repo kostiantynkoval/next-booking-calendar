@@ -25,10 +25,18 @@ interface DashboardLayoutProps {
 }
 
 const getData = async (userId: string) => {
-  const data = await prisma.user.findUnique({ where: { id: userId }, select: { userName: true } });
+  const data = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { userName: true, grantId: true }
+  });
+
   if (!data?.userName) {
     redirect('/onboarding');
   }
+  if (!data?.grantId) {
+    redirect('/onboarding/grant-id');
+  }
+
   return data;
 };
 
