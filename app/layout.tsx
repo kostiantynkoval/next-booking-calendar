@@ -1,8 +1,11 @@
 import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { ThemeProvider } from '@/app/providers/ThemeProvider';
+import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin';
+import { extractRouterConfig } from 'uploadthing/server';
 import localFont from 'next/font/local';
 import './globals.css';
+import { ourFileRouter } from '@/app/api/uploadthing/core';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -34,6 +37,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           {children}
         </ThemeProvider>
       </body>

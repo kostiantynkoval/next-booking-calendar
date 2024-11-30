@@ -19,6 +19,7 @@ import Link from 'next/link';
 import { getSession } from '@/app/utils/getSession';
 import prisma from '@/app/lib/db';
 import { redirect } from 'next/navigation';
+import { Toaster } from '@/components/ui/sonner';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -87,7 +88,7 @@ const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
                     <Image
                       src={session?.user?.image as string}
                       alt="Profile Image"
-                      className="w-full h-full rounded-full"
+                      className="w-full h-full rounded-full object-cover"
                       width={24}
                       height={24}
                     />
@@ -111,6 +112,7 @@ const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
           <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">{children}</main>
         </div>
       </div>
+      <Toaster richColors closeButton />
     </>
   );
 };
