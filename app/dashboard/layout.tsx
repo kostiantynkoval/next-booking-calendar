@@ -43,7 +43,7 @@ const getData = async (userId: string) => {
 
 const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
   const session = await getSession();
-  void getData(session.user?.id as string);
+  await getData(session.user?.id as string);
   const logOut = async () => {
     'use server';
     await signOut();
